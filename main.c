@@ -64,12 +64,38 @@ void test_popBack_nonEmptyVector() {
     assert(v.capacity == 1);
 }
 
+void test_vector_memory() {
+    vector v = createVector(3);
 
-void test_vector(){
+    pushBack(&v, 1);
+    assert(*front(&v) == 1
+           && *back(&v) == 1
+           && *atVector(&v, 0) == 1
+    );
+
+    pushBack(&v, 2);
+    pushBack(&v, 3);
+    assert(
+            getVectorValue(&v, 0) == 1
+            && getVectorValue(&v, 1) == 2
+            && getVectorValue(&v, 2) == 3
+    );
+
+    *back(&v) = 1000;
+    *front(&v) = 7;
+    *atVector(&v, 1) = 993;
+    assert(
+            getVectorValue(&v, 0) == 7
+            && getVectorValue(&v, 1) == 993
+            && getVectorValue(&v, 2) == 1000
+    );
+}
+void test_vector() {
     test_vector_content0();
     test_pushBack_emptyVector();
     test_pushBack_fullVector();
     test_popBack_nonEmptyVector();
+    test_vector_memory();
 }
 
 

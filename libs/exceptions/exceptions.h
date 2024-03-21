@@ -3,10 +3,14 @@
 
 #include "data_structures/vector/vector.h"
 
+
 // ошибка нехватки памяти
-void exceptBadAlloc(vector v);
+void exceptBadAlloc();
+
+// ошибка - вектор пустой
+void exceptEmptyVector();
 
 // ошибка ненайденного элемента
-void exceptIndexError(vector v);
+void exceptIndexError();
 
 #endif
