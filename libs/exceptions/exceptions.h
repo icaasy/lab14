@@ -7,9 +7,6 @@
 void exceptBadAlloc(vector v);
 
 // ошибка ненайденного элемента
-void exceptIndexError(vector v, const size_t index);
-
-// ошибка - вектор пустой
-void exceptEmptyVector(vector v);
+void exceptIndexError(vector v);
 
 #endif

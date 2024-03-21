@@ -73,29 +73,6 @@ void pushBack(vector *v, int x){
 
 
 void popBack(vector *v){
-    exceptEmptyVector(*v);
+    exceptIndexError(*v);
     v->size--;
 }
-
-
-int getVectorValue(vector *v, size_t i){
-    return v->data[i];
-}
-
-
-int* atVector(vector *v, size_t index){
-    exceptIndexError(*v, index);
-
-    return v->data + index;
-}
-
-
-int* back(vector *v){
-    return &v->data[v->size > 0 ? v->size - 1 : 0];
-}
-
-
-int* front(vector *v){
-    return &v->data[0];
-}
-
