@@ -9,8 +9,15 @@ void exceptBadAlloc(vector v){
 }
 
 
-void exceptIndexError(vector v){
+void exceptEmptyVector(vector v){
     if (v.size == 0){
+        fprintf(stderr, "Vector is empty");
+        exit(1);
+    }
+}
+
+void exceptIndexError(vector v, const size_t index) {
+    if (index >= v.size) {
         fprintf(stderr, "Index Error");
         exit(1);
     }
