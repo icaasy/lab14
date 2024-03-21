@@ -1,7 +1,9 @@
 #include "data_structures/vector/vectorVoid.h"
 #include "exceptions/exceptions.h"
 
-
+bool isExistingIndexV(vectorVoid v, size_t index) {
+    return index < v.size;
+}
 vectorVoid createVectorV(size_t n, size_t baseTypeSize){
     vectorVoid new;
 
@@ -9,7 +11,9 @@ vectorVoid createVectorV(size_t n, size_t baseTypeSize){
         new.data = NULL;
     } else {
         new.data = malloc(n * baseTypeSize);
-        exceptBadAllocV(new);
+        if (!new.data){
+            exceptBadAlloc();
+        }
     }
 
     new.size = 0;
@@ -25,7 +29,9 @@ void reserveV(vectorVoid *v, size_t newCapacity){
         v->data = NULL;
     } else {
         v->data = realloc(v->data, v->baseTypeSize * newCapacity);
-        exceptBadAllocV(*v);
+        if (!v->data){
+            exceptBadAlloc();
+        }
     }
 
     v->size = v->size > newCapacity ? newCapacity : v->size;
@@ -66,7 +72,9 @@ bool isFullV(vectorVoid *v){
 
 
 void getVectorValueV(vectorVoid *v, size_t index, void *destination){
-    exceptIndexErrorV(*v, index);
+    if (!isExistingIndexV(*v, index)){
+        exceptIndexError();
+    }
     char *source = (char *)v->data + index * v->baseTypeSize;
     memcpy(destination, source, v->baseTypeSize);
 }
@@ -74,14 +82,18 @@ void getVectorValueV(vectorVoid *v, size_t index, void *destination){
 
 
 void setVectorValueV(vectorVoid *v, size_t index, void *source){
-    exceptIndexErrorV(*v, index);
+    if (!isExistingIndexV(*v, index)){
+        exceptIndexError();
+    }
     char *dst = (char *)v->data + index * v->baseTypeSize;
     memcpy(dst, source, v->baseTypeSize);
 }
 
 
 void popBackV(vectorVoid *v){
-    exceptEmptyVectorV(*v);
+    if (isEmptyV(v)){
+        exceptEmptyVector();
+    }
     v->size--;
 }
 
@@ -89,7 +101,7 @@ void popBackV(vectorVoid *v){
 void pushBackV(vectorVoid *v, void *source){
     if (!v->capacity){
         reserveV(v, 1);
-    } else if (v->size == v->capacity){
+    }  else if (isFullV(v)){
         reserveV(v, v->capacity * 2);
     }
 
