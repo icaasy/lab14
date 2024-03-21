@@ -91,12 +91,71 @@ void test_vector_memory() {
             && getVectorValue(&v, 2) == 1000
     );
 }
+
+void test_vectorV_content() {
+    vectorVoid v = createVectorV(0, sizeof(int));
+    assert(v.data == NULL);
+    assert(v.baseTypeSize == sizeof(int));
+
+    v = createVectorV(1, sizeof(short));
+    assert(v.capacity == 1);
+    assert(v.baseTypeSize == sizeof(short));
+
+    reserveV(&v, 2);
+    assert(v.capacity == 2);
+
+    v.size = 1;
+    clearV(&v);
+    assert(v.size == 0);
+    assert(v.data != NULL);
+
+    reserveV(&v, 4);
+    assert(v.capacity == 4);
+
+    v.size = 2;
+    shrinkToFitV(&v);
+    assert(v.capacity == 2);
+
+    deleteVectorV(&v);
+    assert(v.data == NULL);
+
+    v = createVectorV(2, sizeof(short));
+    short first = 2;
+    short second = 4;
+    pushBackV(&v, &first);
+    pushBackV(&v, &second);
+    assert(isEmptyV(&v) == false);
+    assert(isFullV(&v) == true);
+
+    short third, fourth;
+    getVectorValueV(&v, 0, &third);
+    getVectorValueV(&v, 1, &fourth);
+    assert(
+            third == first && fourth == second
+    );
+
+    clearV(&v);
+    assert(isEmptyV(&v) == true);
+    assert(isFullV(&v) == false);
+
+    pushBackV(&v, &first);
+    popBackV(&v);
+    assert(isEmptyV(&v) == true);
+
+    pushBackV(&v, &first);
+    setVectorValueV(&v, 0, &second);
+
+    short fifth;
+    getVectorValueV(&v, 0, &fifth);
+    assert(fifth == second);
+}
 void test_vector() {
     test_vector_content0();
     test_pushBack_emptyVector();
     test_pushBack_fullVector();
     test_popBack_nonEmptyVector();
     test_vector_memory();
+    test_vectorV_content();
 }
 
 
