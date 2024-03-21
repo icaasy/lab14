@@ -16,4 +16,12 @@ void exceptEmptyVector(){
 void exceptIndexError(){
     fprintf(stderr, "Index Error");
     exit(1);
+
+
+}
+void exceptBadAllocV(vectorVoid v) {
+    if (!v.data) {
+        fprintf(stderr, "bad alloc");
+        exit(1);
+    }
 }

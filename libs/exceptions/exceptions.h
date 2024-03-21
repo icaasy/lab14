@@ -2,7 +2,7 @@
 #define INC_EXCEPTIONS_H
 
 #include "data_structures/vector/vector.h"
-
+#include "data_structures/vector/vectorVoid.h"
 
 // ошибка нехватки памяти
 void exceptBadAlloc();
@@ -12,5 +12,8 @@ void exceptEmptyVector();
 
 // ошибка ненайденного элемента
 void exceptIndexError();
+
+// ошибка нехватки памяти
+void exceptBadAllocV(vectorVoid v);
 
 #endif
