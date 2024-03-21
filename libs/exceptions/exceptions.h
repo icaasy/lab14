@@ -6,4 +6,7 @@
 // ошибка нехватки памяти
 void exceptBadAlloc(vector v);
 
+// ошибка ненайденного элемента
+void exceptIndexError(vector v);
+
 #endif

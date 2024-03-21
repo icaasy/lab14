@@ -7,3 +7,11 @@ void exceptBadAlloc(vector v){
         exit(1);
     }
 }
+
+
+void exceptIndexError(vector v){
+    if (v.size == 0){
+        fprintf(stderr, "Index Error");
+        exit(1);
+    }
+}
